@@ -5,7 +5,7 @@ import Button from '../component/button'
 import { addItem } from '../action/job-applications'
 
 const mapStateToProps = () => ({
-  label: 'Add',
+  label: '+',
   className: 'add-button',
 })
 

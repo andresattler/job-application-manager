@@ -5,7 +5,7 @@ import JobApplicationsList from './container/application-list'
 import AddApplicationButton from './container/add-application-button'
 
 const App = () => (
-  <div>
+  <div className="container">
     <JobApplicationsList />
     <AddApplicationButton />
   </div>
