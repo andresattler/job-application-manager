@@ -21,4 +21,5 @@ export const dbRemove = (index: number) => fetch('/api/remove', {
   }),
 })
 
-export const dbGET = () => {}
+export const dbGET = () => fetch('api/get', { method: 'GET' })
+  .then(res => res.json())

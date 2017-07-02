@@ -8,8 +8,14 @@ const User = mongoose.model('User', {
   items: Array,
 })
 
-routes.get('/applications', (req, res) => {
-  res.send('Hello from the API')
+routes.get('/get', (req, res) => {
+  User.findById('defaultUser', (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data.items)
+    }
+  })
 })
 
 routes.post('/push', (req, res) => {
@@ -18,7 +24,6 @@ routes.post('/push', (req, res) => {
 })
 
 routes.post('/remove', (req, res) => {
-  console.log(req.body.index)
   User.findByIdAndUpdate('defaultUser', { $pull: { items: { id: req.body.index } } }).exec()
   res.sendStatus(200)
 })

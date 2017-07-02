@@ -13,12 +13,18 @@ import App from './app'
 import './style/style.styl'
 import { isProd } from '../shared/util'
 import jobApplicationsReducer from './reducer/job-applications'
+import { getData } from './action/job-applications'
 
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = (isProd ? null : window.__REDUX_DEVTOOLS_EXTENSION__) || compose
 
-const store = createStore(combineReducers({ jobApplications: jobApplicationsReducer }),
-  composeEnhancers(applyMiddleware(thunkMiddleware)))
+const store = createStore(
+  combineReducers({ jobApplications: jobApplicationsReducer }),
+  composeEnhancers(),
+  applyMiddleware(thunkMiddleware),
+)
+// load inital State from Db
+store.dispatch(getData())
 
 const rootEl = document.getElementById('app')
 
