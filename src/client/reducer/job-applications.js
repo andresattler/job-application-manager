@@ -22,7 +22,7 @@ type Action = {
 const jobApplicationsReducer = (state: Immut = initialState, action: Action) => {
   switch (action.type) {
     case ADD_ITEM: {
-      const nextId = state.get('items').last().get('id') + 1
+      const nextId = state.get('items').size > 0 ? state.get('items').last().get('id') + 1 : 0
       dbPush({ id: nextId, name: 'Test' })
       return state.update('items', items => items.push(Immutable.Map({ id: nextId, name: 'Test' })))
     }
