@@ -21,5 +21,16 @@ export const dbRemove = (index: number) => fetch('/api/remove', {
   }),
 })
 
+export const dbUpdate = (index: number, val: string) => fetch('/api/update', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    index,
+    val,
+  }),
+})
+
 export const dbGET = () => fetch('api/get', { method: 'GET' })
   .then(res => res.json())

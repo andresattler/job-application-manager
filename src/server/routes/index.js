@@ -28,4 +28,9 @@ routes.post('/remove', (req, res) => {
   res.sendStatus(200)
 })
 
+routes.post('/update', (req, res) => {
+  User.update({ _id: 'defaultUser', 'items.id': req.body.index }, { 'items.$.name': req.body.val }).exec()
+  res.sendStatus(200)
+})
+
 export default routes

@@ -4,7 +4,7 @@ import Immutable from 'immutable'
 import type { fromJS as Immut } from 'immutable'
 
 import { SET_ITEMS, ADD_ITEM, DELETE_ITEM, CHANGE_NAME } from '../action/job-applications'
-import { dbPush, dbRemove } from '../util/db-interaction'
+import { dbPush, dbRemove, dbUpdate } from '../util/db-interaction'
 
 const initialState = Immutable.fromJS({
   items: [],
@@ -28,6 +28,7 @@ const jobApplicationsReducer = (state: Immut = initialState, action: Action) => 
       dbRemove(state.get('items').get(action.payload).get('id'))
       return state.update('items', items => items.delete(action.payload))
     case CHANGE_NAME: {
+      dbUpdate(state.get('items').get(action.payload.id).get('id'), action.payload.val)
       return state.update('items', items => items.update(action.payload.id, item => item.set('name', action.payload.val)))
     }
     default:
