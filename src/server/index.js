@@ -1,12 +1,22 @@
+// @flow
 import express from 'express'
+import bodyParser from 'body-parser'
+import mongoose from 'mongoose'
 
 import renderApp from './render-app'
 import { WEB_PORT } from '../shared/config'
+import routes from './routes'
 
+mongoose.connect('mongodb://127.0.0.1:27017/test', (err) => {
+  // eslint-disable-next-line
+  err && console.log('db connection failed')
+})
 const app = express()
 
+app.use(bodyParser.json())
 app.use('/static', express.static('dist'))
-app.use('/static', express.static('public'))
+
+app.use('/api', routes)
 
 app.get('/', (req, res) => {
   res.send(renderApp())

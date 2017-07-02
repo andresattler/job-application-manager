@@ -10,7 +10,9 @@ const mapStateToProps = () => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: () => { dispatch(addItem()) },
+  handleClick: () => {
+    dispatch(addItem())
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Button)

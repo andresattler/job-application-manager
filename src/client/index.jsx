@@ -1,9 +1,12 @@
 // @flow
+import 'babel-polyfill'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 
 import App from './app'
 // flow-disable-next-line
@@ -11,9 +14,11 @@ import './style/style.styl'
 import { isProd } from '../shared/util'
 import jobApplicationsReducer from './reducer/job-applications'
 
-const store = createStore(combineReducers({ jobApplications: jobApplicationsReducer }),
 // eslint-disable-next-line no-underscore-dangle
- isProd ? undefined : window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const composeEnhancers = (isProd ? null : window.__REDUX_DEVTOOLS_EXTENSION__) || compose
+
+const store = createStore(combineReducers({ jobApplications: jobApplicationsReducer }),
+  composeEnhancers(applyMiddleware(thunkMiddleware)))
 
 const rootEl = document.getElementById('app')
 
